@@ -3,7 +3,6 @@ const ul = document.querySelector('#myUL');
 const addBtn = document.querySelector('.addBtn');
 const input = document.querySelector('#myInput');
 const todoArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-const item = document.querySelectorAll('#text');
 const removeAll = document.querySelector('#removed');
 localStorage.setItem('items',JSON.stringify(todoArray));
 const data = JSON.parse(localStorage.getItem('items'));
@@ -61,8 +60,8 @@ addBtn.addEventListener('click', function(e) {
 	liMaker(input.value);
 	
 });
-data.forEach((item)=>{
-	liMaker(item);
+data.forEach((data)=>{
+	liMaker(data);
 });
 
 
