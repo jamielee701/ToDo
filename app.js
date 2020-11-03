@@ -4,7 +4,6 @@ const addBtn = document.querySelector('.addBtn');
 const input = document.querySelector('#myInput');
 const todoArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 const removeAll = document.querySelector('#removed');
-localStorage.setItem('items',JSON.stringify(todoArray));
 const data = JSON.parse(localStorage.getItem('items'));
 removeAll.addEventListener('click', function() {
 	// ul.parentNode.removeChild(ul);
@@ -33,10 +32,9 @@ list.addEventListener(
 	false
 );
 
-const liMaker = (text)=>{
-	const newItem = document.createElement('li');
-	newItem.innerText = input.value;
-	input.value = '';
+function liMaker(data){
+	const newItem = document.createElement('li')
+	newItem.innerText = data;
 	ul.appendChild(newItem);
 	const myLiItems = document.querySelectorAll('li');
 	const newSpan = document.createElement('SPAN');
@@ -44,8 +42,6 @@ const liMaker = (text)=>{
 	newSpan.className = 'close';
 	newSpan.appendChild(txt);
 	myLiItems[i].appendChild(newSpan);
-	todoArray.push(newItem.innerText);
-	localStorage.setItem('items',JSON.stringify(todoArray));
 	const close = document.querySelectorAll('.close');
 	for (i = 0; i < close.length; i++) {
 		close[i].onclick = function() {
@@ -54,10 +50,30 @@ const liMaker = (text)=>{
 			localStorage.remove();
 		};
 		}
-	}
+	
+}
 addBtn.addEventListener('click', function(e) {
 	e.preventDefault();
-	liMaker(input.value);
+	const newItem = document.createElement('li');
+	newItem.innerText = input.value;
+	todoArray.push(input.value);
+	localStorage.setItem('items',JSON.stringify(todoArray));
+	input.value = '';
+	ul.appendChild(newItem);
+	const myLiItems = document.querySelectorAll('li');
+	const newSpan = document.createElement('SPAN');
+	const txt = document.createTextNode('\u00D7');
+	newSpan.className = 'close';
+	newSpan.appendChild(txt);
+	myLiItems[i].appendChild(newSpan);
+	const close = document.querySelectorAll('.close');
+	for (i = 0; i < close.length; i++) {
+		close[i].onclick = function() {
+			const div = this.parentElement;
+			div.style.display = 'none';
+			localStorage.remove();
+		};
+		}
 	
 });
 data.forEach((data)=>{
